@@ -26,14 +26,12 @@ custom telegraf config file with the following content:
 ### influxdb
 
 * DB: telegraf 
-
-30 days data retention policy
-10 sec data interval
+  * 30 days data retention policy
+  * 10 sec data interval
   
 * DB: telegraf_downsampled 
-
-downsampled data for infinity
-15 min data interval
+  * downsampled data (infinity)
+  * 15 min data interval
 
 ```
 CREATE DATABASE telegraf
@@ -46,10 +44,12 @@ CREATE CONTINUOUS QUERY cq_all_measurement ON telegraf BEGIN SELECT mean(*) INTO
 
 The following datasources are required:
 
-Name: influxDB-telegraf
-Database: telegraf
+* datasource 1:
+  * Name: influxDB-telegraf
+  * Database: telegraf
 
-Name: influxDB-telegraf_downsampled
-Database: telegraf_downsampled
+* datasource 2:
+  * Name: influxDB-telegraf_downsampled
+  * Database: telegraf_downsampled
 
 
