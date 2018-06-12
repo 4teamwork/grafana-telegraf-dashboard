@@ -4,6 +4,9 @@ Fork from https://grafana.com/dashboards/928
 
 Instead of 1 dashboard with datasource variable (which not work with downsampled data https://github.com/influxdata/influxdb/issues/7332), split the dashboard with fix datasource names
 
+
+![](/images/dashboard.png)
+
 Tested with telegraf 1.6.3 / Influxdb 1.5.2 / Grafana 5.1.3 on CentOS 7
 
 ## requirements
