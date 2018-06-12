@@ -1,13 +1,10 @@
 # Dashboards for use with Grafana, InfluxDB and telegraf
 
-* Fork from https://grafana.com/dashboards/928
+Fork from https://grafana.com/dashboards/928
 
 Instead of 1 dashboard with datasource variable (which not work with downsampled data https://github.com/influxdata/influxdb/issues/7332), split the dashboard with fix datasource names
 
-
-
-Tested with telegraf 1.6.3 / Influxdb 1.5.2 & Grafana 5.1.3
-
+Tested with telegraf 1.6.3 / Influxdb 1.5.2 / Grafana 5.1.3 on CentOS 7
 
 ## requirements
 
@@ -29,10 +26,12 @@ custom telegraf config file with the following content:
 ### influxdb
 
 * DB: telegraf 
+
 30 days data retention policy
 10 sec data interval
   
 * DB: telegraf_downsampled 
+
 downsampled data for infinity
 15 min data interval
 
@@ -45,13 +44,12 @@ CREATE CONTINUOUS QUERY cq_all_measurement ON telegraf BEGIN SELECT mean(*) INTO
 
 ### grafana
 
-the following datasource will be needed:
+The following datasources are required:
 
 Name: influxDB-telegraf
 Database: telegraf
 
 Name: influxDB-telegraf_downsampled
 Database: telegraf_downsampled
-
 
 
