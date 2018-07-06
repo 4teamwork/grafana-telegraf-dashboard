@@ -16,6 +16,9 @@ Tested with telegraf 1.6.3 / Influxdb 1.5.2 / Grafana 5.1.3 on CentOS 7
 custom telegraf config file with the following content:
 
 ```
+[[inputs.disk]]
+  ignore_fs = ["tmpfs", "devtmpfs", "devfs"]
+
 [[inputs.net]]
   fieldpass = ["bytes_recv", "bytes_sent", "tcp_estabresets", "tcp_outrsts", "tcp_activeopens", "tcp_passiveopens", "drop_in", "drop_out", "err_in", "err_out", "host"]
 
