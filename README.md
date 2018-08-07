@@ -61,6 +61,8 @@ The following datasources are required:
 
 ## Dashboard for availability checks
 
+![](/images/availability_dashboard.png)
+
 ### influxdb
 
 * DB: telegraf_availability 
