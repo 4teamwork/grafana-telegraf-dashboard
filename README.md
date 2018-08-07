@@ -55,7 +55,62 @@ The following datasources are required:
   * Database: telegraf
 
 * datasource 2:
-  * Name: influxDB-telegraf_downsampled
+  * Name: influxDB-telegraf-downsampled
   * Database: telegraf_downsampled
 
 
+## Dashboard for availability checks
+
+### influxdb
+
+* DB: telegraf_availability 
+  * default
+
+```
+CREATE DATABASE telegraf_availability
+```
+
+### telegraf
+
+Routing the http_response input to db telegraf_availability:
+
+```
+[[outputs.influxdb]]
+urls = ["https://<fqdn>:8086"]
+database = "telegraf"
+username = "telegraf"
+password = "<pw>"
+[outputs.influxdb.tagdrop]
+influxdb_database = "*"
+
+[[outputs.influxdb]]
+urls = ["https://<fqdn>:8086"]
+database = "telegraf_availability"
+username = "telegraf"
+password = "<pw>"
+tagexclude = ["influxdb_database"]
+[outputs.influxdb.tagpass]
+influxdb_database = ["telegraf_availability"]
+
+[[inputs.http_response]]
+address = "https://<url>/@@health-check"
+response_string_match = '"status": "OK"'
+interval = "30s"
+response_timeout = "10s"
+[inputs.http_response.tags]
+influxdb_database = "telegraf_availability"
+```
+
+### grafana
+
+The following datasources are required:
+
+* datasource 3:
+  * Name: influxDB-telegraf-availability
+  * Database: telegraf_availability
+
+
+The plugin piechart-panel is needed, install it on the server:
+```
+grafana-cli plugins install grafana-piechart-panel
+```
